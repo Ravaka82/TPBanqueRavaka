@@ -5,6 +5,7 @@
 package org.apache.maven.tpbanqueravaka.service;
 
 import jakarta.annotation.sql.DataSourceDefinition;
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -33,7 +34,7 @@ import org.apache.maven.tpbanqueravaka.entity.CompteBancaire;
         }
 )
 
-@RequestScoped
+@ApplicationScoped
 public class GestionnaireCompte {
 
     @PersistenceContext(unitName = "banquePU")
@@ -45,7 +46,13 @@ public class GestionnaireCompte {
     }
 
     public List<CompteBancaire> getAllComptes() {
-        TypedQuery<CompteBancaire> query = em.createNamedQuery("Banque.findAll", CompteBancaire.class);
+        TypedQuery<CompteBancaire> query = em.createNamedQuery("CompteBancaire.findAll", CompteBancaire.class);
         return query.getResultList();
     }
+
+    public long nbComptes() {
+        Query query = em.createQuery("SELECT COUNT(c) FROM CompteBancaire c");
+        return (long) query.getSingleResult();
+    }
+
 }
