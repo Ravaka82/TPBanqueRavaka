@@ -2,8 +2,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:h="jakarta.faces.html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <body>
 
@@ -15,21 +16,36 @@
 
             <ui:define name="content">
                 <h:form>
-                    <p:dataTable value="#{listeComptes.allComptes}" var="compte" widgetVar="compteTable"
-                                 emptyMessage="Aucun compte bancaire trouvé"
-                                 paginator="false" style="width: 50%;">
+                    <p:dataTable value="#{listeComptes.allComptes}" var="item" widgetVar="compteTable"
+                                 emptyMessage="Aucun compte avec ce critère"
+                                 paginator="true"
+                                 rows="10"
+                                 rowsPerPageTemplate="2,4,8,10"
+                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
 
-                        <p:column headerText="ID" style="width: 50px;">
-                            <h:outputText value="#{compte.id}"/>
+                        <p:column sortBy="#{item.id}" filterBy="#{item.id}">
+                            <f:facet name="header">
+                                <h:outputText value="Id"/>
+                            </f:facet>
+                            <h:outputText value="#{item.id}"/>
                         </p:column>
 
-                        <p:column headerText="Nom du propriétaire" style="width: 150px;">
-                            <h:outputText value="#{compte.nomProprietaire}"/>
+                        <p:column sortBy="#{item.nomProprietaire}" filterBy="#{item.nomProprietaire}">
+                            <f:facet name="header">
+                                <h:outputText value="Nom du propriétaire"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nomProprietaire}"/>
                         </p:column>
 
-                        <p:column headerText="Solde" style="width: 100px;">
-                            <h:outputText value="#{compte.solde}"/>
+                        <p:column sortBy="#{item.solde}" filterBy="#{item.solde}">
+                            <f:facet name="header">
+                                <h:outputText value="Solde"/>
+                            </f:facet>
+                            <h:outputText value="#{item.solde}">
+                                <f:convertNumber pattern="###,###,##0"/>
+                            </h:outputText>
                         </p:column>
+
 
                     </p:dataTable>
                     <h:messages/>

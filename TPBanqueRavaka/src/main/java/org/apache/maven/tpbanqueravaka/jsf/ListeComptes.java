@@ -9,6 +9,7 @@ import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Locale;
 import org.apache.maven.tpbanqueravaka.entity.CompteBancaire;
 import org.apache.maven.tpbanqueravaka.service.GestionnaireCompte;
 
@@ -28,5 +29,17 @@ public class ListeComptes implements Serializable {
 
     public List<CompteBancaire> getAllComptes() {
         return gestionnaireCompte.getAllComptes();
+    }
+    public boolean filterBySolde(Object value, Object filter, Locale locale) {
+        String filterText = (filter == null) ? null : filter.toString().trim();
+        if (filterText == null || filterText.equals("")) {
+            return true;
+        }
+        if (value == null) {
+            return false;
+        }
+        int solde = ((Number) value).intValue();
+        int filterValue = Integer.parseInt(filterText);
+        return solde >= filterValue;
     }
 }
