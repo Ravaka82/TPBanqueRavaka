@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="jakarta.faces.html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+
+        <ui:composition template="./WEB-INF/templates/template_defaut.xhtml">
+
+            <ui:define name="top">
+                Liste des comptes
+            </ui:define>
+
+            <ui:define name="content">
+                <h:form>
+                    <p:dataTable value="#{listeComptes.allComptes}" var="compte" widgetVar="compteTable"
+                                 emptyMessage="Aucun compte bancaire trouvé"
+                                 paginator="false" style="width: 50%;">
+
+                        <p:column headerText="ID" style="width: 50px;">
+                            <h:outputText value="#{compte.id}"/>
+                        </p:column>
+
+                        <p:column headerText="Nom du propriétaire" style="width: 150px;">
+                            <h:outputText value="#{compte.nomProprietaire}"/>
+                        </p:column>
+
+                        <p:column headerText="Solde" style="width: 100px;">
+                            <h:outputText value="#{compte.solde}"/>
+                        </p:column>
+
+                    </p:dataTable>
+                    <h:messages/>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
