@@ -61,22 +61,18 @@ public class TransfertBean implements Serializable {
         }
 
         if (erreur) {
-            // En cas d'erreur, rester sur la même page
             return null;
         }
 
         CompteBancaire destination = gestionnaireCompte.getCompteById(idDestination);
         gestionnaireCompte.transfererArgent(source, destination, montant);
 
-        // Récupérer les noms des clients titulaires des comptes
         String nomSource = source.getNomProprietaire();
         String nomDestination = destination.getNomProprietaire();
 
-        // Message de succès avec les noms des clients et le montant du transfert
         String messageSuccess = String.format("Transfert de %d€ de %s vers %s effectué avec succès.",
                 montant, nomSource, nomDestination);
 
-        // Ajout du montant du transfert dans le message de succès
         Util.addFlashInfoMessage(messageSuccess + " Montant : " + montant + "€");
 
         return "listeComptes.xhtml?faces-redirect=true";
