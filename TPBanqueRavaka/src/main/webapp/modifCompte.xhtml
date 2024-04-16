@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="/WEB-INF/templates/template_defaut.xhtml">
+
+            <ui:define name="top">
+                Modifier le nom du propriétaire du compte
+            </ui:define>
+
+            <ui:define name="content">
+                <h:form>
+                    <!-- Afficher l'ancien nom -->
+                    <h:outputLabel for="ancienNom" value="Ancien nom du propriétaire : " />
+                    <h:outputText id="ancienNom" value="#{modifierNomPossesseurBean.compteBancaire.nomProprietaire}" />
+                    <br/>
+
+                    <!-- Champ d'entrée pour le nouveau nom -->
+                    <h:outputLabel for="nouveauNom" value="Nouveau nom du propriétaire : " />
+                    <h:inputText id="nouveauNom" value="#{modifierNomPossesseurBean.nouveauNom}" />
+                    <br/>
+
+                    <!-- Afficher l'ancien solde -->
+                    <h:outputLabel for="ancienSolde" value="Ancien solde : " />
+                    <h:outputText id="ancienSolde" value="#{modifierNomPossesseurBean.compteBancaire.solde}" />
+                    <br/>
+
+                    <!-- Champ d'entrée pour le nouveau solde -->
+                    <h:outputLabel for="nouveauSolde" value="Nouveau solde : " />
+                    <h:inputText id="nouveauSolde" value="#{modifierNomPossesseurBean.nouveauSolde}" />
+                    <br/>
+
+                    <!-- Bouton de modification -->
+                    <h:commandButton value="Modifier" action="#{modifierNomPossesseurBean.modifierNomPossesseur()}" />
+                </h:form>
+
+            </ui:define>
+
+            <!-- Définition du paramètre view -->
+            <f:metadata>
+                <f:viewParam name="idCompte" value="#{modifierNomPossesseurBean.compteId}" required="true"/>
+                <f:viewAction action="#{modifierNomPossesseurBean.init()}" />
+            </f:metadata>
+
+        </ui:composition>
+
+    </body>
+</html>
