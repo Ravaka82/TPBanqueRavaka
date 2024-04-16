@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./WEB-INF/templates/template_defaut.xhtml">
+
+            <ui:define name="top">
+                Détails du Compte
+            </ui:define>
+
+            <ui:define name="content">
+                <h:form>
+                    <h2>Informations du Compte</h2>
+                    <p:panelGrid columns="2">
+                        <p:outputLabel value="ID du Compte:"/>
+                        <h:outputText value="#{detailsCompteBean.compte.id}"/>
+
+                        <p:outputLabel value="Nom du Propriétaire:"/>
+                        <h:outputText value="#{detailsCompteBean.compte.nomProprietaire}"/>
+
+                        <p:outputLabel value="Solde du Compte:"/>
+                        <h:outputText value="#{detailsCompteBean.compte.solde}">
+                            <f:convertNumber pattern="###,###,##0"/>
+                        </h:outputText>
+                    </p:panelGrid>
+
+                    <h2>Effectuer un Mouvement</h2>
+                    <p:panelGrid columns="2">
+                        <p:outputLabel value="Type de Mouvement:"/>
+                        <p:selectOneMenu value="#{detailsCompteBean.typeMouvement}">
+                            <f:selectItem itemLabel="Ajouter" itemValue="ajouter"/>
+                            <f:selectItem itemLabel="Retirer" itemValue="retirer"/>
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="Montant:"/>
+                        <p:inputText value="#{detailsCompteBean.montant}" required="true">
+                            <f:convertNumber pattern="###,###,##0"/>
+                        </p:inputText>
+                    </p:panelGrid>
+
+                    <p:commandButton value="Effectuer le Mouvement" action="#{detailsCompteBean.effectuerMouvement}" ajax="false"/>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+        <!-- Définition du paramètre view -->
+        <f:metadata>
+            <f:viewParam name="idCompte" value="#{detailsCompteBean.idCompte}" required="true"/>
+            <f:viewAction action="#{detailsCompteBean.init}" />
+        </f:metadata>
+
+    </body>
+</html>

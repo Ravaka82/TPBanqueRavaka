@@ -68,9 +68,21 @@ public class GestionnaireCompte {
     }
 
     @Transactional
-    public CompteBancaire getCompteById(String accountId) {
-        Long id = Long.valueOf(accountId);
+    public CompteBancaire getCompteById(Long accountId) {
+        Long id = accountId;
         return em.find(CompteBancaire.class, id);
+    }
+
+    @Transactional
+    public void deposer(CompteBancaire compteBancaire, int montant) {
+        compteBancaire.deposer(montant);
+        update(compteBancaire);
+    }
+
+    @Transactional
+    public void retirer(CompteBancaire compteBancaire, int montant) {
+        compteBancaire.retirer(montant);
+        update(compteBancaire);
     }
 
 }

@@ -12,8 +12,8 @@ import org.apache.maven.tpbanqueravaka.service.GestionnaireCompte;
 @ViewScoped
 public class TransfertBean implements Serializable {
 
-    private String idSource;
-    private String idDestination;
+    private Long idSource;
+    private Long idDestination;
     private int montant;
 
     @Inject
@@ -22,19 +22,19 @@ public class TransfertBean implements Serializable {
     public TransfertBean() {
     }
 
-    public String getIdSource() {
+    public Long getIdSource() {
         return idSource;
     }
 
-    public void setIdSource(String idSource) {
+    public void setIdSource(Long idSource) {
         this.idSource = idSource;
     }
 
-    public String getIdDestination() {
+    public Long getIdDestination() {
         return idDestination;
     }
 
-    public void setIdDestination(String idDestination) {
+    public void setIdDestination(Long idDestination) {
         this.idDestination = idDestination;
     }
 
