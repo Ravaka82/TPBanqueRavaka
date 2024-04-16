@@ -48,6 +48,15 @@
                             </h:outputText>
                         </p:column>
 
+                        <p:column width="10">
+                            <f:facet name="header">
+                                <h:outputText value="Opérations"/>
+                            </f:facet>
+                            <h:commandLink action="#{listeComptes.supprimerCompte(item)}"
+                                           title="Supprimer le compte de #{item.nomProprietaire}" >
+                                <h:graphicImage name="images/del.png" width="25"/>
+                            </h:commandLink>
+                        </p:column>
 
                     </p:dataTable>
                     <h:messages/>

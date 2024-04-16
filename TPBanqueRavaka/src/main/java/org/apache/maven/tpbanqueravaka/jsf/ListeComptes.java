@@ -11,6 +11,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Locale;
 import org.apache.maven.tpbanqueravaka.entity.CompteBancaire;
+import org.apache.maven.tpbanqueravaka.jsf.util.Util;
 import org.apache.maven.tpbanqueravaka.service.GestionnaireCompte;
 
 /**
@@ -30,6 +31,7 @@ public class ListeComptes implements Serializable {
     public List<CompteBancaire> getAllComptes() {
         return gestionnaireCompte.getAllComptes();
     }
+
     public boolean filterBySolde(Object value, Object filter, Locale locale) {
         String filterText = (filter == null) ? null : filter.toString().trim();
         if (filterText == null || filterText.equals("")) {
@@ -41,5 +43,11 @@ public class ListeComptes implements Serializable {
         int solde = ((Number) value).intValue();
         int filterValue = Integer.parseInt(filterText);
         return solde >= filterValue;
+    }
+
+    public String supprimerCompte(CompteBancaire compteBancaire) {
+        gestionnaireCompte.supprimerCompte(compteBancaire);
+        Util.addFlashInfoMessage("Compte de " + compteBancaire.getNomProprietaire() + " supprimé");
+        return "listeComptes?faces-redirect=true";
     }
 }

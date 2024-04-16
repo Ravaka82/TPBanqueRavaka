@@ -68,7 +68,7 @@ public class DetailsCompteBean implements Serializable {
             gestionnaireCompte.retirer(compte, montant);
         }
         Util.addFlashInfoMessage("Mouvement enregistré sur le compte de " + compte.getNomProprietaire());
-        // Rediriger vers la page listeComptes.xhtml après l'enregistrement du mouvement
+
         return "listeComptes.xhtml?faces-redirect=true";
     }
 
