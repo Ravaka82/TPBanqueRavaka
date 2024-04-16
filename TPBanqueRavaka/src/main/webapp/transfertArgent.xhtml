@@ -41,11 +41,10 @@
                 <h:message for="montant"/>
             </h:panelGrid>
 
-            <h:commandButton value="Transférer" action="#{transfertBean.transferer}"/>
+            <h:commandButton value="Transférer" action="#{transfertBean.transferer}" />
         </h:form>
 
-   
-        <h:messages/>
+        <h:messages globalOnly="true" />
     </ui:define>
 </ui:composition>
 
