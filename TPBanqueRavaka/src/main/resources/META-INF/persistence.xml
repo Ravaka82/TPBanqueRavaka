@@ -4,9 +4,10 @@
   <persistence-unit name="banquePU">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <jta-data-source>java:app/jdbc/banque</jta-data-source>
+    <validation-mode>NONE</validation-mode>
     <properties>
       <property name="eclipselink.logging.level" value="FINE"/>
-      <property name="jakarta.persistence.schema-generation.database.action" value="drop-and-create"/>
+      <property name="jakarta.persistence.schema-generation.database.action" value="create"/>
     </properties>
   </persistence-unit>
 </persistence>
