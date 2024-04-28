@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+
+    <ui:composition template="./WEB-INF/templates/template_defaut.xhtml">
+
+        <ui:define name="metadata">
+            <f:metadata>
+                <f:viewParam name="id" value="#{operations.idCompte}" />
+                <f:viewAction action="#{operations.init}" />
+            </f:metadata>
+        </ui:define>
+
+        <ui:define name="top">
+            <h1>Historique des opérations</h1>
+        </ui:define>
+
+        <ui:define name="content">
+            <h:form>
+                <p:dataTable value="#{operations.operations}" var="operation"
+                             emptyMessage="Aucune opération trouvée">
+                    <p:column headerText="ID">
+                        <h:outputText value="#{operation.id}" />
+                    </p:column>
+                    <p:column headerText="Description">
+                        <h:outputText value="#{operation.description}" />
+                    </p:column>
+                    <p:column headerText="Date">
+                        <h:outputText value="#{operation.dateOperation}">
+                            <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" type="localDateTime" />
+                        </h:outputText>
+                    </p:column>
+                    <p:column headerText="Montant">
+                        <h:outputText value="#{operation.montant}">
+                            <f:convertNumber pattern="###,###,##0.00" />
+                        </h:outputText>
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+        </ui:define>
+
+    </ui:composition>
+
+</h:body>
+</html>

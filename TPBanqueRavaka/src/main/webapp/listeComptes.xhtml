@@ -67,6 +67,15 @@
                             </h:link>
                         </p:column>
 
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText escape="false" value="Historique&lt;br/>opérations"/>
+                            </f:facet>
+                            <h:link outcome="operations.xhtml" value="Détails">
+                                <f:param name="id" value="#{item.id}" />
+                            </h:link>
+                        </p:column>
+
                     </p:dataTable>
                     <h:messages/>
                 </h:form>
