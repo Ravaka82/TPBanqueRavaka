@@ -6,7 +6,11 @@ package org.apache.maven.tpbanqueravaka.service;
 
 import jakarta.annotation.sql.DataSourceDefinition;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.context.FacesContext;
+import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.OptimisticLockException;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
@@ -38,6 +42,12 @@ public class GestionnaireCompte {
 
     @PersistenceContext(unitName = "banquePU")
     private EntityManager em;
+    private CompteBancaire compte;
+    private double montant;
+    private String typeMouvement;
+    
+    @Inject
+    private GestionnaireCompte gestionnaireCompte;
 
     @Transactional
     public void creerCompte(CompteBancaire c) {
@@ -84,9 +94,26 @@ public class GestionnaireCompte {
         compteBancaire.retirer(montant);
         update(compteBancaire);
     }
+
     @Transactional
     public void supprimerCompte(CompteBancaire compte) {
         em.remove(em.merge(compte));
+    }
+
+    @Transactional
+    public String enregistrerMouvement() {
+        try {
+            if (typeMouvement.equals("ajout")) {
+                gestionnaireCompte.deposer(compte, (int) montant);
+            } else {
+                gestionnaireCompte.retirer(compte, (int) montant);
+            }
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Opération réussie", "Le mouvement a été enregistré."));
+            return "listeComptes?faces-redirect=true";
+        } catch (OptimisticLockException ex) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erreur de concurrence", "Le compte a été modifié par un autre utilisateur."));
+            return null;
+        }
     }
 
 }
